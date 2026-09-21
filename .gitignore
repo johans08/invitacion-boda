@@ -1,0 +1,9 @@
+# Archivos fuente privados o pesados que no forman parte del sitio publicado
+img/
+reference/
+dist/assets/photos/gallery-03.webp
+
+# Archivos locales del sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/

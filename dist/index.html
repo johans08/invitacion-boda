@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1e3557">
+  <meta name="description" content="Invitación de boda de Jennifer y Oswaldo · Octubre de 2027.">
+  <title>Boda de Jennifer y Oswaldo · Octubre 2027</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231e3557'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-size='39' fill='%23d2b477'%3E%E2%9C%88%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="entry paper" id="entry">
+    <div class="entry-copy" aria-hidden="true">
+      <p class="kicker">THE JOURNEY OF A LIFETIME</p>
+      <p class="entry-script">Nuestro gran viaje</p>
+    </div>
+    <div class="passport-stage">
+      <span class="airmail airmail-one" aria-hidden="true"></span>
+      <span class="airmail airmail-two" aria-hidden="true"></span>
+      <button class="passport" id="open-passport" aria-label="Abrir el pasaporte y ver la invitación">
+        <span class="passport-border"></span>
+        <span class="passport-caption">THE JOURNEY OF</span>
+        <strong class="passport-title">PASSPORT</strong>
+        <span class="passport-subtitle">TO OUR FOREVER</span>
+        <span class="passport-emblem" aria-hidden="true"><span>✈</span></span>
+        <span class="passport-names">Jennifer <i>&</i> Oswaldo</span>
+        <span class="passport-date">OCTUBRE · 2027</span>
+      </button>
+    </div>
+    <button class="open-note" id="open-note" aria-controls="invitation">TOCA TU PASAPORTE</button>
+  </div>
+
+  <main id="invitation" hidden>
+    <header class="topbar">
+      <a href="#inicio" class="brand" aria-label="Ir al inicio">J <span>&</span> O</a>
+      <nav aria-label="Navegación principal"><a href="#detalles">Detalles</a><a href="#vestimenta">Vestimenta</a><a href="#asistencia">RSVP</a></nav>
+      <button id="close-passport" class="back-cover" type="button" aria-label="Volver a la portada">✈</button>
+    </header>
+
+    <section class="collage paper" id="inicio" aria-labelledby="welcome-title">
+      <div class="collage-heading reveal"><p class="kicker">LOVE IS OUR DESTINATION</p><h1 id="welcome-title">Nuestro próximo destino</h1><p class="script">Una vida juntos</p></div>
+      <div class="stationery" aria-label="Papelería de viaje de la boda">
+        <span class="stamp stamp-top" aria-hidden="true">AIR<br>MAIL</span>
+        <div class="date-letter reveal-item"><span class="tiny-label">SAVE THE MONTH</span><span class="rings" aria-hidden="true">◯◯</span><span class="script">Nos casamos</span><strong>OCTUBRE</strong><span class="letter-year">2027</span><span class="micro">DÍA POR CONFIRMAR</span></div>
+        <a class="mini-passport reveal-item" href="#detalles" aria-label="Ir a los detalles de la boda"><span class="tiny-label">THE JOURNEY OF</span><strong>WEDDING<br>PASSPORT</strong><span class="compass" aria-hidden="true">✈</span><span class="script">Jennifer & Oswaldo</span><span class="micro">OCT · 2027</span></a>
+        <a href="#historia" class="photo-pass reveal-item" aria-label="Ver la fotografía principal"><span class="tiny-label">PASSPORT</span><img src="assets/photos/passport.webp" alt="Jennifer y Oswaldo juntos" width="1050" height="1400"><span class="script">Our adventure</span></a>
+        <a class="detail-card reveal-item" href="#detalles"><span class="micro">YOUR GUIDE TO</span><strong>WEDDING<br>DETAILS</strong><span class="line-art" aria-hidden="true">♢</span></a>
+        <div class="envelope reveal-item" aria-hidden="true"><span>J <i>&</i> O</span></div>
+        <div class="boarding-pass reveal-item"><div><span class="tiny-label">BOARDING PASS</span><strong>DESTINATION: FOREVER</strong><span>OCT 2027 · TWO HEARTS · ONE JOURNEY</span></div><span class="boarding-plane" aria-hidden="true">✈</span></div>
+        <span class="stamp stamp-bottom" aria-hidden="true">DEPARTED<br>OCT 2027</span>
+      </div>
+      <a href="#historia" class="scroll-cue">EMPEZAR EL VIAJE <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="couple-hero" id="historia" aria-labelledby="couple-title">
+      <img src="assets/photos/hero.webp" alt="Jennifer y Oswaldo frente al lago al atardecer" width="1200" height="1800">
+      <div class="couple-overlay reveal"><p class="kicker">CON EL CORAZÓN LLENO DE ILUSIÓN</p><h2 id="couple-title"><span>Jennifer</span><i>&</i><span>Oswaldo</span></h2><p>Queremos compartir contigo el viaje más bonito de nuestra vida.</p><span class="hero-date">OCTUBRE · 2027</span></div>
+    </section>
+
+    <section class="intro paper section-pad reveal" id="detalles">
+      <p class="kicker">OUR WEDDING DAY</p><h2 class="script">Reserva el mes</h2><div class="flourish" aria-hidden="true"><span>✈</span></div>
+      <p>Hay viajes que cambian la vida.<br>El nuestro comienza con un «sí»<br>y será aún más especial contigo.</p>
+      <div class="date-ticket" aria-label="Fecha de la boda"><div><span class="tiny-label">MES</span><strong>Octubre</strong></div><div class="date-ticket-year"><strong>2027</strong><span>DÍA Y HORA POR CONFIRMAR</span></div></div>
+      <p class="soft-note">La fecha completa se anunciará cuando esté confirmada.</p>
+    </section>
+
+    <section class="locations paper section-pad reveal" id="ubicacion">
+      <p class="kicker">LOCATION GUIDE</p><h2 class="script">Nuestra ruta</h2>
+      <div class="location-grid">
+        <article class="location-card"><span class="location-num">01</span><span class="tiny-label">PRIMER DESTINO</span><h3>La ceremonia</h3><p>El lugar donde comienza nuestro «sí».</p><p class="pending">LUGAR Y HORARIO POR CONFIRMAR</p><button type="button" disabled>VER MAPA · PRÓXIMAMENTE</button></article>
+        <article class="location-card"><span class="location-num">02</span><span class="tiny-label">SEGUNDO DESTINO</span><h3>La recepción</h3><p>El lugar para brindar y celebrar juntos.</p><p class="pending">LUGAR Y HORARIO POR CONFIRMAR</p><button type="button" disabled>VER MAPA · PRÓXIMAMENTE</button></article>
+      </div>
+    </section>
+
+    <section class="entourage paper section-pad reveal" aria-labelledby="entourage-title">
+      <p class="kicker">TOGETHER WITH OUR FAMILIES</p><h2 class="script" id="entourage-title">Nuestro cortejo</h2><p>Las personas que nos acompañarán de cerca en este viaje.</p>
+      <div class="entourage-grid"><div><span aria-hidden="true">♔</span><strong>Familia de Jennifer</strong><small>POR CONFIRMAR</small></div><div><span aria-hidden="true">♔</span><strong>Familia de Oswaldo</strong><small>POR CONFIRMAR</small></div><div><span aria-hidden="true">◇</span><strong>Damas y caballeros</strong><small>POR CONFIRMAR</small></div><div><span aria-hidden="true">◇</span><strong>Personas especiales</strong><small>POR CONFIRMAR</small></div></div>
+    </section>
+
+    <section class="dress-code paper section-pad reveal" id="vestimenta">
+      <p class="kicker">WHAT TO WEAR</p><h2 class="script">Código de vestimenta</h2><div class="dress-figures" aria-hidden="true"><span>♙</span><span>♕</span><span>♙</span><span>♕</span></div>
+      <p>El estilo formal se confirmará más adelante.<br>Por ahora, reservamos estos colores:</p>
+      <ul class="swatches" aria-label="Colores reservados y no permitidos para invitados"><li><span style="--swatch:#fff"></span>Blanco</li><li><span style="--swatch:#eee7d2"></span>Marfil</li><li><span class="blue-swatch"></span>Cualquier azul</li><li><span style="--swatch:#b62f38"></span>Rojo</li><li><span style="--swatch:#682237"></span>Borgoña</li><li><span style="--swatch:#909398"></span>Gris</li></ul>
+      <p class="soft-note">Interpretación provisional para la vestimenta de invitados.</p>
+      <div class="reminder-card"><span class="tiny-label">GENTLE REMINDERS</span><p>Agradecemos elegir otros tonos para acompañar la paleta de la celebración.</p></div>
+    </section>
+
+    <section class="rsvp section-pad reveal" id="asistencia">
+      <p class="kicker">RESERVE YOUR SEAT</p><h2 class="script">¿Nos acompañas?</h2><p>La confirmación se habilitará cuando exista un sistema real para recibir las respuestas.</p>
+      <div class="rsvp-card"><span class="rsvp-flight" aria-hidden="true">✈</span><h3>Confirmación de asistencia</h3><p>Aún no estamos recibiendo confirmaciones.</p><button type="button" disabled>RSVP · PRÓXIMAMENTE</button></div>
+    </section>
+
+    <section class="gallery paper section-pad reveal" id="galeria">
+      <p class="kicker">OUR GALLERY</p><h2 class="script">Un viaje de dos</h2>
+      <div class="gallery-grid">
+        <figure class="wide"><img src="assets/photos/gallery-01.webp" alt="Jennifer y Oswaldo sonriendo junto al lago" loading="lazy" width="1200" height="1600"></figure>
+        <figure class="tall"><img src="assets/photos/gallery-05.webp" alt="Jennifer y Oswaldo abrazados en el campo" loading="lazy" width="1200" height="1600"></figure>
+        <figure><img src="assets/photos/gallery-04.webp" alt="Jennifer y Oswaldo riendo" loading="lazy" width="1200" height="1600"></figure>
+        <figure><img src="assets/photos/gallery-02.webp" alt="Jennifer y Oswaldo abrazados entre árboles" loading="lazy" width="1200" height="1600"></figure>
+        <figure class="wide"><img src="assets/photos/gallery-06.webp" alt="Retrato de Jennifer y Oswaldo bajo un árbol" loading="lazy" width="1200" height="1600"></figure>
+        <figure class="wide"><img src="assets/photos/gallery-07.webp" alt="Jennifer y Oswaldo caminando por un sendero" loading="lazy" width="1200" height="1600"></figure>
+        <figure class="wide"><img src="assets/photos/gallery-08.webp" alt="Jennifer y Oswaldo tomados de la mano frente al lago" loading="lazy" width="1200" height="1600"></figure>
+        <figure class="wide"><img src="assets/photos/gallery-09.webp" alt="Jennifer y Oswaldo besándose junto al lago" loading="lazy" width="1200" height="1600"></figure>
+      </div><p class="gallery-note script">Lo mejor está por venir</p>
+    </section>
+
+    <footer class="paper"><span class="footer-monogram">J <i>&</i> O</span><p class="script">Contigo, a cualquier destino</p><p class="kicker">OCTUBRE · 2027</p><button id="return-cover" type="button">VOLVER AL PASAPORTE ↑</button><p class="demo-note">Invitación en preparación · Fotografías temporales.</p></footer>
+  </main>
+</body>
+</html>
