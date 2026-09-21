@@ -58,33 +58,61 @@ if (!reducedMotion && 'IntersectionObserver' in window) {
 }
 
 const journeyStops = [...document.querySelectorAll('.journey-stop')];
-const journeyLinks = [...document.querySelectorAll('.journey-stops a')];
+const journeyMarkers = [...document.querySelectorAll('.journey-stops > span')];
 const journeyDock = document.getElementById('journey-dock');
 const journeyCount = document.getElementById('journey-count');
 const journeyName = document.getElementById('journey-name');
-const journeyNext = document.getElementById('journey-next');
+const scrollPlane = document.getElementById('scroll-plane');
+const flightRoute = document.getElementById('flight-route-path');
+const hero = document.querySelector('.couple-hero');
+const scrollDecorations = [
+  { element: document.querySelector('.scroll-heart-one'), center: .16, x: .16, y: .28, rotation: -12 },
+  { element: document.querySelector('.scroll-heart-two'), center: .30, x: .81, y: .23, rotation: 13 },
+  { element: document.querySelector('.scroll-ring'), center: .43, x: .15, y: .67, rotation: -9 },
+  { element: document.querySelector('.scroll-heart-three'), center: .58, x: .84, y: .58, rotation: 10 },
+  { element: document.querySelector('.scroll-bouquet'), center: .73, x: .13, y: .33, rotation: -8 },
+  { element: document.querySelector('.scroll-heart-four'), center: .87, x: .80, y: .73, rotation: 16 }
+];
 let activeStopIndex = 0;
 
 function activateStop(index) {
   const safeIndex = Math.max(0, Math.min(index, journeyStops.length - 1));
   activeStopIndex = safeIndex;
-  const progress = journeyStops.length > 1 ? safeIndex / (journeyStops.length - 1) : 0;
-  journeyDock.style.setProperty('--journey-progress', progress);
   journeyCount.textContent = `PARADA ${safeIndex + 1} DE ${journeyStops.length}`;
   journeyName.textContent = journeyStops[safeIndex].dataset.stopTitle;
 
   journeyStops.forEach((section, sectionIndex) => section.classList.toggle('chapter-active', sectionIndex === safeIndex));
-  journeyLinks.forEach((link, linkIndex) => {
-    link.classList.toggle('active', linkIndex === safeIndex);
-    link.classList.toggle('visited', linkIndex < safeIndex);
-    if (linkIndex === safeIndex) link.setAttribute('aria-current', 'step');
-    else link.removeAttribute('aria-current');
+  journeyMarkers.forEach((marker, markerIndex) => {
+    marker.classList.toggle('active', markerIndex === safeIndex);
+    marker.classList.toggle('visited', markerIndex < safeIndex);
   });
+}
 
-  const isLast = safeIndex === journeyStops.length - 1;
-  journeyNext.classList.toggle('is-finish', isLast);
-  journeyNext.firstChild.textContent = isLast ? 'PORTADA ' : 'SIGUIENTE ';
-  journeyNext.setAttribute('aria-label', isLast ? 'Volver a la portada' : `Ir a ${journeyStops[safeIndex + 1].dataset.stopTitle}`);
+function clamp(value, minimum = 0, maximum = 1) {
+  return Math.max(minimum, Math.min(maximum, value));
+}
+
+function updateScrollDecorations(progress) {
+  if (reducedMotion) return;
+  const width = Math.min(window.innerWidth, 860);
+  const height = window.innerHeight;
+  const orbit = progress * Math.PI * 5.2;
+  const x = width * (.5 + Math.sin(orbit) * .37);
+  const y = height * (.47 + Math.sin(orbit * .54 - .7) * .31);
+  const dx = Math.cos(orbit) * width * .37;
+  const dy = Math.cos(orbit * .54 - .7) * height * .167;
+  const rotation = Math.atan2(dy, dx) * 180 / Math.PI;
+  const edgeFade = clamp(progress / .035) * clamp((1 - progress) / .035);
+  scrollPlane.style.transform = `translate3d(${x}px, ${y - 58}px, 0) translate(-50%, -50%) rotate(${rotation}deg)`;
+  scrollPlane.style.opacity = String(.82 * edgeFade);
+  flightRoute.style.strokeDashoffset = String(-progress * .32);
+
+  scrollDecorations.forEach(({ element, center, x: xRatio, y: yRatio, rotation: baseRotation }, index) => {
+    const visibility = clamp(1 - Math.abs(progress - center) / .105);
+    const drift = Math.sin(progress * 18 + index) * 10;
+    element.style.opacity = String(visibility * .8);
+    element.style.transform = `translate3d(${width * xRatio}px, ${height * yRatio - 58 + drift}px, 0) translate(-50%, -50%) rotate(${baseRotation + drift * .35}deg) scale(${.76 + visibility * .24})`;
+  });
 }
 
 let journeyFrame = 0;
@@ -92,6 +120,18 @@ function updateJourneyFromViewport() {
   journeyFrame = 0;
   if (invitation.hidden) return;
   const marker = window.innerHeight * 0.42;
+  const start = journeyStops[0].offsetTop;
+  const end = journeyStops[journeyStops.length - 1].offsetTop + journeyStops[journeyStops.length - 1].offsetHeight - window.innerHeight * .58;
+  const progress = clamp((window.scrollY + marker - start) / Math.max(1, end - start));
+  journeyDock.style.setProperty('--journey-progress', progress);
+  updateScrollDecorations(progress);
+
+  if (!reducedMotion && hero) {
+    const heroRect = hero.getBoundingClientRect();
+    const centerOffset = (window.innerHeight / 2) - (heroRect.top + heroRect.height / 2);
+    hero.style.setProperty('--hero-shift', `${clamp(centerOffset * .075, -34, 34)}px`);
+  }
+
   let bestIndex = 0;
   let bestDistance = Number.POSITIVE_INFINITY;
   journeyStops.forEach((section, index) => {
@@ -111,31 +151,6 @@ window.addEventListener('scroll', () => {
   journeyFrame = requestAnimationFrame(updateJourneyFromViewport);
 }, { passive: true });
 window.addEventListener('resize', updateJourneyFromViewport);
-
-journeyNext.addEventListener('click', () => {
-  if (activeStopIndex === journeyStops.length - 1) {
-    showCover();
-    return;
-  }
-  journeyStops[activeStopIndex + 1].scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
-});
-
-if (!reducedMotion) {
-  let parallaxFrame = 0;
-  const updateParallax = () => {
-    parallaxFrame = 0;
-    const hero = document.querySelector('.couple-hero');
-    if (!hero || invitation.hidden) return;
-    const rect = hero.getBoundingClientRect();
-    const centerOffset = (window.innerHeight / 2) - (rect.top + rect.height / 2);
-    const shift = Math.max(-34, Math.min(34, centerOffset * 0.075));
-    hero.style.setProperty('--hero-shift', `${shift}px`);
-  };
-  window.addEventListener('scroll', () => {
-    if (parallaxFrame) return;
-    parallaxFrame = requestAnimationFrame(updateParallax);
-  }, { passive: true });
-}
 
 activateStop(0);
 

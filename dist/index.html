@@ -45,16 +45,23 @@
     <div class="journey-dock" id="journey-dock" aria-label="Progreso del recorrido">
       <div class="journey-meta"><span id="journey-count">PARADA 1 DE 7</span><strong id="journey-name">Pasaporte</strong></div>
       <div class="journey-track" aria-hidden="true"><span class="journey-fill" id="journey-fill"></span><span class="journey-plane" id="journey-plane">✈</span></div>
-      <div class="journey-stops" aria-label="Paradas del recorrido">
-        <a href="#inicio" aria-label="Parada 1: Pasaporte" class="active" aria-current="step"></a>
-        <a href="#historia" aria-label="Parada 2: Nosotros"></a>
-        <a href="#detalles" aria-label="Parada 3: La fecha"></a>
-        <a href="#ubicacion" aria-label="Parada 4: La ruta"></a>
-        <a href="#vestimenta" aria-label="Parada 5: Vestimenta"></a>
-        <a href="#asistencia" aria-label="Parada 6: RSVP"></a>
-        <a href="#galeria" aria-label="Parada 7: Recuerdos"></a>
+      <div class="journey-stops" aria-hidden="true">
+        <span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
-      <button class="journey-next" id="journey-next" type="button" aria-label="Ir a la siguiente parada">SIGUIENTE <span aria-hidden="true">↓</span></button>
+      <div class="journey-scroll-hint">DESLIZA <span aria-hidden="true">↓</span></div>
+    </div>
+
+    <div class="scroll-decor-layer" id="scroll-decor-layer" aria-hidden="true">
+      <svg class="flight-route" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path id="flight-route-path" pathLength="1" d="M 8 91 C 91 83, 12 67, 88 55 S 16 29, 92 8"></path>
+      </svg>
+      <span class="scroll-plane" id="scroll-plane">✈</span>
+      <span class="scroll-heart scroll-heart-one">♥</span>
+      <span class="scroll-heart scroll-heart-two">♥</span>
+      <span class="scroll-heart scroll-heart-three">♥</span>
+      <span class="scroll-heart scroll-heart-four">♥</span>
+      <span class="scroll-ring"><span>◇</span></span>
+      <span class="scroll-bouquet"><i>❀</i><b>✿</b><em>❁</em></span>
     </div>
 
     <section class="collage paper journey-stop" id="inicio" data-stop="1" data-stop-title="Pasaporte" aria-labelledby="welcome-title">
