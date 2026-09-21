@@ -42,7 +42,22 @@
       <button id="close-passport" class="back-cover" type="button" aria-label="Volver a la portada">✈</button>
     </header>
 
-    <section class="collage paper" id="inicio" aria-labelledby="welcome-title">
+    <div class="journey-dock" id="journey-dock" aria-label="Progreso del recorrido">
+      <div class="journey-meta"><span id="journey-count">PARADA 1 DE 7</span><strong id="journey-name">Pasaporte</strong></div>
+      <div class="journey-track" aria-hidden="true"><span class="journey-fill" id="journey-fill"></span><span class="journey-plane" id="journey-plane">✈</span></div>
+      <div class="journey-stops" aria-label="Paradas del recorrido">
+        <a href="#inicio" aria-label="Parada 1: Pasaporte" class="active" aria-current="step"></a>
+        <a href="#historia" aria-label="Parada 2: Nosotros"></a>
+        <a href="#detalles" aria-label="Parada 3: La fecha"></a>
+        <a href="#ubicacion" aria-label="Parada 4: La ruta"></a>
+        <a href="#vestimenta" aria-label="Parada 5: Vestimenta"></a>
+        <a href="#asistencia" aria-label="Parada 6: RSVP"></a>
+        <a href="#galeria" aria-label="Parada 7: Recuerdos"></a>
+      </div>
+      <button class="journey-next" id="journey-next" type="button" aria-label="Ir a la siguiente parada">SIGUIENTE <span aria-hidden="true">↓</span></button>
+    </div>
+
+    <section class="collage paper journey-stop" id="inicio" data-stop="1" data-stop-title="Pasaporte" aria-labelledby="welcome-title">
       <div class="collage-heading reveal"><p class="kicker">LOVE IS OUR DESTINATION</p><h1 id="welcome-title">Nuestro próximo destino</h1><p class="script">Una vida juntos</p></div>
       <div class="stationery" aria-label="Papelería de viaje de la boda">
         <span class="stamp stamp-top" aria-hidden="true">AIR<br>MAIL</span>
@@ -57,19 +72,19 @@
       <a href="#historia" class="scroll-cue">EMPEZAR EL VIAJE <span aria-hidden="true">↓</span></a>
     </section>
 
-    <section class="couple-hero" id="historia" aria-labelledby="couple-title">
+    <section class="couple-hero journey-stop" id="historia" data-stop="2" data-stop-title="Nosotros" aria-labelledby="couple-title">
       <img src="assets/photos/hero.webp" alt="Jennifer y Oswaldo frente al lago al atardecer" width="1200" height="1800">
       <div class="couple-overlay reveal"><p class="kicker">CON EL CORAZÓN LLENO DE ILUSIÓN</p><h2 id="couple-title"><span>Jennifer</span><i>&</i><span>Oswaldo</span></h2><p>Queremos compartir contigo el viaje más bonito de nuestra vida.</p><span class="hero-date">OCTUBRE · 2027</span></div>
     </section>
 
-    <section class="intro paper section-pad reveal" id="detalles">
+    <section class="intro paper section-pad reveal journey-stop" id="detalles" data-stop="3" data-stop-title="La fecha">
       <p class="kicker">OUR WEDDING DAY</p><h2 class="script">Reserva el mes</h2><div class="flourish" aria-hidden="true"><span>✈</span></div>
       <p>Hay viajes que cambian la vida.<br>El nuestro comienza con un «sí»<br>y será aún más especial contigo.</p>
       <div class="date-ticket" aria-label="Fecha de la boda"><div><span class="tiny-label">MES</span><strong>Octubre</strong></div><div class="date-ticket-year"><strong>2027</strong><span>DÍA Y HORA POR CONFIRMAR</span></div></div>
       <p class="soft-note">La fecha completa se anunciará cuando esté confirmada.</p>
     </section>
 
-    <section class="locations paper section-pad reveal" id="ubicacion">
+    <section class="locations paper section-pad reveal journey-stop" id="ubicacion" data-stop="4" data-stop-title="La ruta">
       <p class="kicker">LOCATION GUIDE</p><h2 class="script">Nuestra ruta</h2>
       <div class="location-grid">
         <article class="location-card"><span class="location-num">01</span><span class="tiny-label">PRIMER DESTINO</span><h3>La ceremonia</h3><p>El lugar donde comienza nuestro «sí».</p><p class="pending">LUGAR Y HORARIO POR CONFIRMAR</p><button type="button" disabled>VER MAPA · PRÓXIMAMENTE</button></article>
@@ -82,7 +97,7 @@
       <div class="entourage-grid"><div><span aria-hidden="true">♔</span><strong>Familia de Jennifer</strong><small>POR CONFIRMAR</small></div><div><span aria-hidden="true">♔</span><strong>Familia de Oswaldo</strong><small>POR CONFIRMAR</small></div><div><span aria-hidden="true">◇</span><strong>Damas y caballeros</strong><small>POR CONFIRMAR</small></div><div><span aria-hidden="true">◇</span><strong>Personas especiales</strong><small>POR CONFIRMAR</small></div></div>
     </section>
 
-    <section class="dress-code paper section-pad reveal" id="vestimenta">
+    <section class="dress-code paper section-pad reveal journey-stop" id="vestimenta" data-stop="5" data-stop-title="Vestimenta">
       <p class="kicker">WHAT TO WEAR</p><h2 class="script">Código de vestimenta</h2><div class="dress-figures" aria-hidden="true"><span>♙</span><span>♕</span><span>♙</span><span>♕</span></div>
       <p>El estilo formal se confirmará más adelante.<br>Por ahora, reservamos estos colores:</p>
       <ul class="swatches" aria-label="Colores reservados y no permitidos para invitados"><li><span style="--swatch:#fff"></span>Blanco</li><li><span style="--swatch:#eee7d2"></span>Marfil</li><li><span class="blue-swatch"></span>Cualquier azul</li><li><span style="--swatch:#b62f38"></span>Rojo</li><li><span style="--swatch:#682237"></span>Borgoña</li><li><span style="--swatch:#909398"></span>Gris</li></ul>
@@ -90,12 +105,12 @@
       <div class="reminder-card"><span class="tiny-label">GENTLE REMINDERS</span><p>Agradecemos elegir otros tonos para acompañar la paleta de la celebración.</p></div>
     </section>
 
-    <section class="rsvp section-pad reveal" id="asistencia">
+    <section class="rsvp section-pad reveal journey-stop" id="asistencia" data-stop="6" data-stop-title="RSVP">
       <p class="kicker">RESERVE YOUR SEAT</p><h2 class="script">¿Nos acompañas?</h2><p>La confirmación se habilitará cuando exista un sistema real para recibir las respuestas.</p>
       <div class="rsvp-card"><span class="rsvp-flight" aria-hidden="true">✈</span><h3>Confirmación de asistencia</h3><p>Aún no estamos recibiendo confirmaciones.</p><button type="button" disabled>RSVP · PRÓXIMAMENTE</button></div>
     </section>
 
-    <section class="gallery paper section-pad reveal" id="galeria">
+    <section class="gallery paper section-pad reveal journey-stop" id="galeria" data-stop="7" data-stop-title="Recuerdos">
       <p class="kicker">OUR GALLERY</p><h2 class="script">Un viaje de dos</h2>
       <div class="gallery-grid">
         <figure class="wide"><img src="assets/photos/gallery-01.webp" alt="Jennifer y Oswaldo sonriendo junto al lago" loading="lazy" width="1200" height="1600"></figure>

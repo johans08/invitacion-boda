@@ -54,8 +54,90 @@ if (!reducedMotion && 'IntersectionObserver' in window) {
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
 
-  document.querySelectorAll('.reveal, .stationery').forEach((element) => observer.observe(element));
+  document.querySelectorAll('.reveal, .stationery, .gallery-grid figure').forEach((element) => observer.observe(element));
 }
+
+const journeyStops = [...document.querySelectorAll('.journey-stop')];
+const journeyLinks = [...document.querySelectorAll('.journey-stops a')];
+const journeyDock = document.getElementById('journey-dock');
+const journeyCount = document.getElementById('journey-count');
+const journeyName = document.getElementById('journey-name');
+const journeyNext = document.getElementById('journey-next');
+let activeStopIndex = 0;
+
+function activateStop(index) {
+  const safeIndex = Math.max(0, Math.min(index, journeyStops.length - 1));
+  activeStopIndex = safeIndex;
+  const progress = journeyStops.length > 1 ? safeIndex / (journeyStops.length - 1) : 0;
+  journeyDock.style.setProperty('--journey-progress', progress);
+  journeyCount.textContent = `PARADA ${safeIndex + 1} DE ${journeyStops.length}`;
+  journeyName.textContent = journeyStops[safeIndex].dataset.stopTitle;
+
+  journeyStops.forEach((section, sectionIndex) => section.classList.toggle('chapter-active', sectionIndex === safeIndex));
+  journeyLinks.forEach((link, linkIndex) => {
+    link.classList.toggle('active', linkIndex === safeIndex);
+    link.classList.toggle('visited', linkIndex < safeIndex);
+    if (linkIndex === safeIndex) link.setAttribute('aria-current', 'step');
+    else link.removeAttribute('aria-current');
+  });
+
+  const isLast = safeIndex === journeyStops.length - 1;
+  journeyNext.classList.toggle('is-finish', isLast);
+  journeyNext.firstChild.textContent = isLast ? 'PORTADA ' : 'SIGUIENTE ';
+  journeyNext.setAttribute('aria-label', isLast ? 'Volver a la portada' : `Ir a ${journeyStops[safeIndex + 1].dataset.stopTitle}`);
+}
+
+let journeyFrame = 0;
+function updateJourneyFromViewport() {
+  journeyFrame = 0;
+  if (invitation.hidden) return;
+  const marker = window.innerHeight * 0.42;
+  let bestIndex = 0;
+  let bestDistance = Number.POSITIVE_INFINITY;
+  journeyStops.forEach((section, index) => {
+    const rect = section.getBoundingClientRect();
+    const distance = rect.top <= marker && rect.bottom >= marker
+      ? 0
+      : Math.min(Math.abs(rect.top - marker), Math.abs(rect.bottom - marker));
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      bestIndex = index;
+    }
+  });
+  if (bestIndex !== activeStopIndex) activateStop(bestIndex);
+}
+window.addEventListener('scroll', () => {
+  if (journeyFrame) return;
+  journeyFrame = requestAnimationFrame(updateJourneyFromViewport);
+}, { passive: true });
+window.addEventListener('resize', updateJourneyFromViewport);
+
+journeyNext.addEventListener('click', () => {
+  if (activeStopIndex === journeyStops.length - 1) {
+    showCover();
+    return;
+  }
+  journeyStops[activeStopIndex + 1].scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+});
+
+if (!reducedMotion) {
+  let parallaxFrame = 0;
+  const updateParallax = () => {
+    parallaxFrame = 0;
+    const hero = document.querySelector('.couple-hero');
+    if (!hero || invitation.hidden) return;
+    const rect = hero.getBoundingClientRect();
+    const centerOffset = (window.innerHeight / 2) - (rect.top + rect.height / 2);
+    const shift = Math.max(-34, Math.min(34, centerOffset * 0.075));
+    hero.style.setProperty('--hero-shift', `${shift}px`);
+  };
+  window.addEventListener('scroll', () => {
+    if (parallaxFrame) return;
+    parallaxFrame = requestAnimationFrame(updateParallax);
+  }, { passive: true });
+}
+
+activateStop(0);
 
 function showInvitation() {
   if (opening || !invitation.hidden) return;
@@ -67,16 +149,19 @@ function showInvitation() {
     entry.hidden = true;
     invitation.hidden = false;
     document.body.classList.remove('locked');
+    requestAnimationFrame(() => invitation.classList.add('journey-ready'));
     window.scrollTo({ top: 0, behavior: 'instant' });
     const heading = document.getElementById('welcome-title');
     heading.setAttribute('tabindex', '-1');
     heading.focus({ preventScroll: true });
+    updateJourneyFromViewport();
     opening = false;
   }, reducedMotion ? 0 : 720);
 }
 
 function showCover() {
   invitation.hidden = true;
+  invitation.classList.remove('journey-ready');
   entry.hidden = false;
   entry.classList.remove('leaving');
   opener.classList.remove('opening');
@@ -96,7 +181,13 @@ if (linkedSection && invitation.contains(linkedSection)) {
   entry.hidden = true;
   invitation.hidden = false;
   document.body.classList.remove('locked');
-  requestAnimationFrame(() => linkedSection.scrollIntoView());
+  const linkedIndex = journeyStops.findIndex((section) => section === linkedSection || section.contains(linkedSection));
+  if (linkedIndex >= 0) activateStop(linkedIndex);
+  requestAnimationFrame(() => {
+    invitation.classList.add('journey-ready');
+    linkedSection.scrollIntoView();
+    requestAnimationFrame(updateJourneyFromViewport);
+  });
 } else {
   document.body.classList.add('locked');
 }
